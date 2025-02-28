@@ -6,6 +6,6 @@ import org.springframework.stereotype.Service;
 public class HelloWorldService {
 
     public String helloWorld(String name) {
-        return "Hello World : " + name;
+        return "Hello World, " + name + "\n ! Bem-vindo ao sistema desenvolvido por Maurício.";
     }
 }
