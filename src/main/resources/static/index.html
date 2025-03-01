@@ -7,10 +7,11 @@
     <title>Digite seu nome</title>
 </head>
 <body>
+
 <h2>Olá, digite seu nome:</h2>
 
 <!-- Formulário para envio -->
-<form id="nameForm" method="GET" action="#">
+<form id="nameForm" method="GET" action="#" novalidate>
     <input type="text" id="nameInput" name="name" placeholder="Seu nome" required>
     <button type="submit">Enviar</button>
 </form>
@@ -19,33 +20,41 @@
 <p id="response"></p>
 
 <script>
-    document.getElementById('nameForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Evita o envio padrão do formulário
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById('nameForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Evita o envio padrão do formulário
 
-        const name = document.getElementById("nameInput").value;
+            const nameInput = document.getElementById("nameInput");
+            const name = nameInput.value.trim();
+            const responseElement = document.getElementById("response");
 
-        if (!name) {
-            alert("Por favor, digite seu nome!");
-            return;
-        }
+            if (!name) {
+                alert("Por favor, digite seu nome!");
+                nameInput.focus();
+                return;
+            }
 
-        // Fazendo a requisição usando o método GET para o backend
-        fetch(`http://localhost:8080/hello-world?name=${encodeURIComponent(name)}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Erro na resposta da API: ${response.status} ${response.statusText}`);
-                }
-                return response.text();
-            })
-            .then(data => {
-                // Exibe a resposta recebida
-                document.getElementById("response").innerText = data;
-            })
-            .catch(error => {
-                console.error("Erro ao chamar API:", error);
-                document.getElementById("response").innerText = "Erro ao enviar a requisição!";
-            });
+            // Fazendo a requisição usando o método GET para o backend
+            fetch(`http://localhost:8080/hello-world?name=${encodeURIComponent(name)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Erro na resposta da API: ${response.status} ${response.statusText}`);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    responseElement.innerText = data;
+                })
+                .catch(error => {
+                    console.error("Erro ao chamar API:", error);
+                    responseElement.innerText = "Erro ao enviar a requisição!";
+                });
+
+            // Resetando o input após o envio
+            nameInput.value = "";
+        });
     });
 </script>
+
 </body>
 </html>
