@@ -7,7 +7,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/hello-world")
-@CrossOrigin(origins = "http://localhost:3000")  // Permite requisições do frontend
 public class HelloWorldController {
     private final HelloWorldService helloWorldService;
 
