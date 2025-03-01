@@ -13,6 +13,7 @@ body {
     text-align: center;
 }
 
+/* Estilo do título */
 h2 {
     font-size: 2rem;
     margin-bottom: 20px;
@@ -37,12 +38,18 @@ form:hover {
     transform: scale(1.02);
 }
 
+/* Contêiner para input e botão */
+.input-container {
+    display: flex;
+    gap: 10px; /* Espaço entre input e botão */
+}
+
+/* Ajuste do input */
 input[type="text"] {
-    width: 100%;
+    flex: 1; /* Ocupa todo o espaço disponível */
     padding: 12px;
     border-radius: 8px;
     border: none;
-    margin-bottom: 20px;
     background: rgba(255, 255, 255, 0.8);
     color: #333;
     font-size: 1rem;
@@ -56,18 +63,18 @@ input[type="text"]:focus {
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
 }
 
-/* Estilo do botão */
+/* Ajuste do botão */
 button {
-    background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
-    border: none;
-    color: white;
-    padding: 12px 24px;
+    flex: 1; /* Garante que o botão tenha o mesmo tamanho do input */
+    padding: 12px;
     border-radius: 8px;
-    cursor: pointer;
+    border: none;
+    background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+    color: white;
     font-size: 1rem;
     font-weight: bold;
+    cursor: pointer;
     transition: all 0.3s ease;
-    width: 100%;
 }
 
 /* Efeito hover no botão */
