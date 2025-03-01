@@ -7,26 +7,44 @@
 </head>
 <body>
 <h2>Olá, digite seu nome:</h2>
-<input type="text" id="nameInput" placeholder="Seu nome">
-<button onclick="sendRequest()">Enviar</button>
 
+<!-- Formulário para envio -->
+<form id="nameForm" method="GET" action="#">
+    <input type="text" id="nameInput" name="name" placeholder="Seu nome" required>
+    <button type="submit">Enviar</button>
+</form>
+
+<!-- Onde a resposta será exibida -->
 <p id="response"></p>
 
 <script>
-    function sendRequest() {
+    document.getElementById('nameForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Evita o envio padrão do formulário
+
         const name = document.getElementById("nameInput").value;
+
         if (!name) {
             alert("Por favor, digite seu nome!");
             return;
         }
 
-        fetch(`http://localhost:8080/hello-world?name=${name}`)
-            .then(response => response.text())
+        // Fazendo a requisição usando o método GET para o backend
+        fetch(`http://localhost:8080/hello-world?name=${encodeURIComponent(name)}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erro na resposta da API: ${response.status} ${response.statusText}`);
+                }
+                return response.text();
+            })
             .then(data => {
+                // Exibe a resposta recebida
                 document.getElementById("response").innerText = data;
             })
-            .catch(error => console.error("Erro ao chamar API:", error));
-    }
+            .catch(error => {
+                console.error("Erro ao chamar API:", error);
+                document.getElementById("response").innerText = "Erro ao enviar a requisição!";
+            });
+    });
 </script>
 </body>
 </html>
